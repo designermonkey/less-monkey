@@ -1,0 +1,283 @@
+
+
+///
+//	Mixin Classes
+//	Quickly apply css to selectors with functions.
+//	
+//	@package	Less Monkey
+//	@author		John Porter <john@designermonkey.co.uk>
+//	@license	CC0 <http://creativecommons.org/publicdomain/zero/1.0/>
+///
+
+
+///
+//	Output font sizes in ems based on the base @font-size
+//	
+//	@param	@size	the font size in pixels to be converted
+///
+.font-size (@size: 16) {
+	font-size: @size / (@font-size * 1em);
+}
+
+
+///
+//	Output line heights in ems based on the base @font-size
+//	
+//	@param	@size	the font size in pixels to be converted
+///
+.line-height (@lh: 24) {
+	line-height: @lh / (@font-size * 1em);
+}
+
+
+///
+//	Output a width in ems based on the column grid
+//	
+//	@param	@cols	The number of columns to calculate
+///
+.columns (@cols: 1) {
+	width: (@cols * (@column + @gutter) - @gutter) / (@font-size * 1em);
+}
+
+
+///
+//	Set the size of an element
+//	
+//	@param	@width	The width in pixels (optional), translated into em
+//	@param	@height	The width in pixels (optional), translated into em
+///
+.size (@width: 'auto', @height: 'auto') {
+	width: @width / (@font-size * 1em);
+	height: @height / (@font-size * 1em);
+}
+
+
+///
+//	Background Image
+//	Includes retina images: 'image.png' would be 'image@2x.png'
+//	
+//	@param	@image		Name of the image
+//	@param	@path		Path to the image, defaults to @image-path
+//	@param	@repeat		Wherther to repeat the image
+//	@param	@position	Position relative to the origin
+//	@param	@origin		Origin of the images position
+///
+.background-image (@image: 'none', @path: @image-path, @w: auto, @h: auto, @repeat: 'no-repeat', @position: 'center', @origin: 'padding-box') {
+
+	@normal: ~`"@{image}" = "none"? "@{image}": "@{path}@{image}"`;
+	@retina: ~`"@{image}" = "none"? "@{image}": "@{path}@{image}".split('.').slice(0, "@{path}@{image}".split('.').length - 1).join(".") + "@2x" + "." + "@{path}@{image}".split('.')["@{path}@{image}".split('.').length - 1]`;
+
+	background-image: url("@{normal}");
+	@media all and (-webkit-min-device-pixel-ratio : 1.5) {
+		background-image: url("@{retina}");
+	}
+	background-repeat: @repeat;
+	background-position: @position;
+	background-origin: @origin;
+	background-size: @w @h;
+}
+
+
+///
+//	Clearfix
+///
+.clearfix {
+	zoom: 1;
+	&:after {
+		display: block;
+		visibility: hidden;
+		height: 0;
+		clear: both;
+		content: ".";
+	}
+}
+
+
+///
+//	Drop Shadow
+//	
+//	For multiple shadows, escape the string like so
+//	.drop-shadow(~"0 1px 3px #eee, 0 5px 10px #f5f5f5");
+//	
+//	@param	@values	Escaped string of values
+///
+.drop-shadow (@values) {
+	-webkit-box-shadow: @values;
+	-moz-box-shadow: @values;
+	box-shadow: @values;
+}
+
+
+///
+//	Inner Shadow
+//	
+//	For multiple shadows, escape the string like so
+//	.drop-shadow(~"0 1px 3px #eee, 0 5px 10px #f5f5f5");
+//	
+//	@param	@values	Escaped string of values
+///
+.inner-shadow (@values) {
+	-webkit-box-shadow: inset @values;
+	-moz-box-shadow: inset @values;
+	box-shadow: inset @values;
+}
+
+
+///
+//	No Shadow
+///
+.no-shadow {
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}
+
+
+///
+//	Text Shadow
+//	
+//	For multiple shadows, escape the string like so
+//	.drop-shadow(~"0 1px 3px #eee, 0 5px 10px #f5f5f5");
+//	
+//	@param	@values	Escaped string of values
+///
+.text-shadow (@values) {
+	text-shadow: @values;
+}
+
+
+///
+//	Border Radius
+//	A single radius applies to all corners. Multiple radii apply to specific corners
+//	
+//	@param	@radius
+//	@param	@topright
+//	@param	@bottomright
+//	@param	@bottomleft
+//	@param	@topleft
+///
+.border-radius (@radius: 0px) {
+	-webkit-border-radius: @radius;
+	-moz-border-radius: @radius;
+	border-radius: @radius;
+	-moz-background-clip: padding;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box; 
+}
+.border-radius (@topright: 0px, @bottomright: 0px, @bottomleft: 0px, @topleft: 0px) {
+	-webkit-border-top-right-radius: @topright;
+	-webkit-border-bottom-right-radius: @bottomright;
+	-webkit-border-bottom-left-radius: @bottomleft;
+	-webkit-border-top-left-radius: @topleft;
+	-moz-border-radius-topright: @topright;
+	-moz-border-radius-bottomright: @bottomright;
+	-moz-border-radius-bottomleft: @bottomleft;
+	-moz-border-radius-topleft: @topleft;
+	border-top-right-radius: @topright;
+	border-bottom-right-radius: @bottomright;
+	border-bottom-left-radius: @bottomleft;
+	border-top-left-radius: @topleft;
+	-moz-background-clip: padding;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box; 
+}
+
+
+///
+//	Opacity
+//	
+//	@param	@opacity	0-1 value
+///
+.opacity (@opacity: 1) {
+	@percent: percentage(@opacity);
+	-ms-filter: ~"'progid:DXImageTransform.Microsoft.Alpha(opacity=@{percent})'";
+	-moz-opacity: @opacity;
+	-khtml-opacity: @opacity;
+	-webkit-opacity: @opacity;
+	opacity: @opacity;
+}
+
+
+
+///
+//	Transitions
+//	@param	@speed	Transition duration
+///
+.transition (@speed: 500ms) {
+	-webkit-transition: all @speed ease-out;
+	-moz-transition: all @speed ease-out;
+	-ms-transition: all @speed ease-out;
+	-o-transition: all @speed ease-out;
+	transition: all @speed ease-out;
+}
+
+
+///
+//	No Transition
+///
+.no-transition {
+	-webkit-transition: none;
+	-moz-transition: none;
+	-ms-transition: none;
+	-o-transition: none;
+	transition: none;
+}
+
+
+///
+//	Scale
+//	
+//	@param	@ratio	Numeric scale value
+///
+.scale (@ratio: 1.5) {
+	-webkit-transform: scale(@ratio);
+	-moz-transform: scale(@ratio);
+	transform: scale(@ratio);
+}
+
+
+///
+//	Rotate
+//	
+//	@param	@deg	Numeric degrees value
+///
+.rotate (@deg: 5deg){
+	-webkit-transform: rotate(@deg);
+	-moz-transform: rotate(@deg);
+	transform: rotate(@deg);
+}
+
+
+
+///
+//	Sharpen an image if it has become blurry due to upscaling or downscaling
+//	
+//	@see https://developer.mozilla.org/en/CSS/image-rendering
+///
+.sharpen-image {
+	image-rendering:-moz-crisp-edges;
+	-ms-interpolation-mode:nearest-neighbor;  // IE 7+
+}
+
+
+///
+//	When photos are upscaled or downscaled, they often get blurry. Don't use
+//	this on flat color images, they will still appear blurry.
+//	
+//	@see https://developer.mozilla.org/en/CSS/image-rendering
+///
+.high-quality-image {
+    image-rendering:optimizeQuality;
+    -ms-interpolation-mode:bicubic;  // IE 7+
+}
+
+///
+//	Optimizes the rendering on images so they
+//	appear faster, but at a lower quality. Useful for <video>
+///
+.low-quality-image {
+    image-rendering:optimizeSpeed;
+}
+
+
+
