@@ -16,6 +16,7 @@
 //	@param	@size	the font size in pixels to be converted
 ///
 .font-size (@size: 16) {
+	font-size: @size+'px';
 	font-size: @size / (@font-size * 1em);
 }
 
@@ -65,6 +66,21 @@
 .background-image (@image: 'none', @path: @image-path, @w: auto, @h: auto, @repeat: 'no-repeat', @position: 'center', @origin: 'padding-box') {
 
 	@normal: ~`"@{image}" = "none"? "@{image}": "@{path}@{image}"`;
+	@retina: ~`"@{image}" = "none"? "@{image}": "@{path}@{image}".split('.').slice(0, "@{path}@{image}".split('.').length - 1).join(".") + "@2x" + "." + "@{path}@{image}".split('.')["@{path}@{image}".split('.').length - 1]`;
+
+	background-image: url("@{normal}");
+	@media all and (-webkit-min-device-pixel-ratio : 1.5) {
+		background-image: url("@{retina}");
+	}
+	background-repeat: @repeat;
+	background-position: @position;
+	background-origin: @origin;
+	background-size: @w @h;
+}
+
+.jit-retina-image (@image: 'none', @path: @image-path, @w: 0, @h: 0, @jit-mode: 0, @pos: 0) {
+
+	@normal: ~`"@{image}" = "none"? "@{image}": "/image/@{jit-mode}/@{}@{path}@{image}"`;
 	@retina: ~`"@{image}" = "none"? "@{image}": "@{path}@{image}".split('.').slice(0, "@{path}@{image}".split('.').length - 1).join(".") + "@2x" + "." + "@{path}@{image}".split('.')["@{path}@{image}".split('.').length - 1]`;
 
 	background-image: url("@{normal}");
