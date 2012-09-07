@@ -19,46 +19,73 @@
 ///
 //	Basics
 ///
-html {
-
-}
-
-html, body {
-
-}
-
 body {
-	
+	/* 16px / 24px */
+	font-size: @font-size / @font-size * 1em; 
+	line-height: @baseline / @em;
+	color: @body;
+	background: @background;
+	-webkit-tap-highlight-color: fadeout(@link, 62%);
+}
+
+::selection {
+	background: @link;
+	color: @background;
+}
+::-moz-selection {
+	background: @link;
+	color: @background;
+}
+img::selection {
+	background: transparent;
+}
+img::-moz-selection {
+	background: transparent;
 }
 
 
 ///
-//	Headers
+//	Font size classes
 ///
-h1, h2, h3, h4, h5, h6 {
+.small {
+	/* 13px / 18px */
+	font-size: 13 / @em;
+	line-height: (@baseline*0.75) / (@font-size*0.8125) * 1em;
+}
+
+.normal, h3 {
+	/* 16px / 24px */
+	font-size: @font-size / @em;
+	line-height: @baseline / @em; /* 24 */
+}
+
+.large, h2, h1 {
+	/* 26 / 36px */
+	font-size: 26 / @em;
+	line-height: (@baseline*1.5) / 26 * 1em;
+}
+
+.huge {
+	/* 42px / 48px */
+	font-size: 42 / @em;
+	line-height: (@baseline*2) / 42 * 1em;
+}
+
+.massive {
+	/* 68px / 72px */
+	font-size: 68 / @em;
+	line-height: (@baseline*3) / 68 * 1em;
+}
+
+.gigantic {
+	/* 110px / 120px */
+	font-size: 110 / @em;
+	line-height: (@baseline*5) / 110 * 1em;
+}
+
 
 }
 
-h1 {
 
 }
 
-h2 {
-
-}
-
-h3 {
-
-}
-
-h4 {
-
-}
-
-h5 {
-
-}
-
-h6 {
-	
-}
