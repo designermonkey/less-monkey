@@ -9,6 +9,16 @@
 ///
 
 
+///	----------------------------------------------------------------------
+//	Import the grid system
+///
+@import "grid.responsive.less";
+//@import "grid.adaptive.less";
+
+
+///	----------------------------------------------------------------------
+//	Basics
+///
 html {
 	height: 100%;
 }
@@ -18,18 +28,43 @@ body {
 }
 
 
+///	----------------------------------------------------------------------
+//	Fluid Media
 ///
-//	Simple fluid media
-///
-
 figure {
 	position: relative;
 }
+
 figure img, figure object, figure embed, figure video {
 	max-width: 100%; 
 	display: block;
 }
+
 img {
 	border: 0; 
 	-ms-interpolation-mode: bicubic;
+}
+
+
+///	----------------------------------------------------------------------
+//	Site Structure
+///
+body>header, section.wrapper {
+	.columns(8);
+	padding: 0 @1col;
+	background-color: rgba(255,255,255,0.5);
+}
+
+body>header {
+	margin-top: (@gutter * 3) / @em;
+	padding-top: (@gutter * 3) / @em;
+}
+
+section.wrapper {
+	margin: 0;
+}
+
+article.home.article {
+	padding-top: (@gutter * 3) / @em;
+	padding-left: @2cols;
 }

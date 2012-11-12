@@ -10,27 +10,62 @@
 ///
 
 
+///	----------------------------------------------------------------------
+//	Configuration
 ///
+@font-size:		16;			// Base font-size in pixels
+@baseline:		24;			// Base line-height in pixels
+@em: @font-size * 1em;		// Shorthand for outputting ems, e.g. "12/@em"
+
+
+///	----------------------------------------------------------------------
+//	Typography Mixins
+///
+
+
+///
+//	Output font sizes in ems based on the base @font-size
+//	
+//	@param	@size	the font size in pixels to be converted
+///
+.font-size (@size: @font-size) {
+	font-size: @size / (@font-size * 1em);
+}
+
+
+///
+//	Output line heights in ems based on the @baseline
+//	
+//	@param	times	Number times the baseline line-height
+//	@param	fsize	The font size in pixels to be converted
+///
+.line-height (@times: 1, @fsize: @font-size) {
+	line-height: (@baseline*@times) / @fsize * 1em;
+}
+
+
+///	----------------------------------------------------------------------
 //	Font Family Definitions
 //	Import font stylesheets here
-//	@import "../fonts/font-name.css"
 ///
+@import "/assets/fonts/font-name/font-name.css";
+@font-name: FontName;
 
 
-///
+///	----------------------------------------------------------------------
 //	Basics
 ///
 body {
-	/* 16px / 24px */
-	font-size: @font-size / @font-size * 1em; 
-	line-height: @baseline / @em;
+	font-family: @font-name;
+	.font-size; 
+	.line-height;
 	color: @body;
 	background: @background;
 	-webkit-tap-highlight-color: fadeout(@link, 62%);
 }
 
 
-///
+///	----------------------------------------------------------------------
 //	Selections
 ///
 ::selection {
@@ -49,48 +84,42 @@ img::-moz-selection {
 }
 
 
-///
+///	----------------------------------------------------------------------
 //	Font size classes
 ///
 .small {
-	/* 13px / 18px */
-	font-size: 13 / @em;
-	line-height: (@baseline*0.75) / (@font-size*0.8125) * 1em;
+	.font-size (13);
+	.line-height (0.75, 13);
 }
 
 .normal, h3 {
-	/* 16px / 24px */
-	font-size: @font-size / @em;
-	line-height: @baseline / @em; /* 24 */
+	.font-size;
+	.line-height;
 }
 
 .large, h2, h1 {
-	/* 26 / 36px */
-	font-size: 26 / @em;
-	line-height: (@baseline*1.5) / 26 * 1em;
+	.font-size (26);
+	.line-height (1.5, 26);
 }
 
 .huge {
-	/* 42px / 48px */
-	font-size: 42 / @em;
-	line-height: (@baseline*2) / 42 * 1em;
+	.font-size (42);
+	.line-height (2, 42);
 }
 
 .massive {
-	/* 68px / 72px */
-	font-size: 68 / @em;
-	line-height: (@baseline*3) / 68 * 1em;
+	.font-size (68);
+	.line-height (3, 68);
 }
 
 .gigantic {
-	/* 110px / 120px */
-	font-size: 110 / @em;
-	line-height: (@baseline*5) / 110 * 1em;
+	.font-size (88);
+	.line-height (4, 88);
 }
 
 
-///
-//	List style classes
+///	----------------------------------------------------------------------
+//	List Styles
 ///
 ul {
 	&.disc {
@@ -141,3 +170,21 @@ ul, ol {
 	}
 }
 
+
+///	----------------------------------------------------------------------
+//	Page Typography
+///
+body>header h1 {
+	.gigantic;
+	font-family: @font-name;
+	font-weight: normal;
+	text-transform: capitalize;
+	color: white;
+	.opacity(0.5);
+}
+
+article.home.article {
+	header h1 {
+		font-family: @font-name;
+	}
+}

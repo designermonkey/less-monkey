@@ -1,0 +1,109 @@
+
+
+///
+//	Responsive Grid
+//	
+//	@package	Less Monkey
+//	@author		John Porter <john@designermonkey.co.uk>
+//	@license	CC0 <http://creativecommons.org/publicdomain/zero/1.0/>
+///
+
+
+///	----------------------------------------------------------------------
+//	Configuration
+///
+@grid:		8;					// Number of column divisions for the grid
+@column:	100% / @grid;		// The column width of your grid in pixels
+@gutter:	16;					// The gutter width of your grid in pixels
+@ie7-box-sizing: "/workspace/assets/js/ie7-border-box.htc";
+
+
+///
+// Column widths in variables
+///
+@1cols: (100% / @grid); @1col: @1cols;
+@2cols: 2 * @1col;
+@3cols: 3 * @1col;
+@4cols: 4 * @1col;
+@5cols: 5 * @1col;
+@6cols: 6 * @1col;
+@7cols: 7 * @1col;
+@8cols: 8 * @1col;
+
+
+///	----------------------------------------------------------------------
+//	Responsive Grid Mixins
+///
+
+///
+//	Wrapper
+///
+.wrapper () {
+	width: 100%;
+	margin: 0 auto;
+	overflow: hidden;
+	.clearfix;
+}
+
+///
+//	Columns
+//
+//	@param	@num	Number of columns
+//	@param	@parent	Number of columns the parent element is using from base grid
+///
+.columns (@num, @parent: 8) {
+	width: @num * (100% / @parent);
+	float: left;
+}
+
+
+///
+//	Gutters
+//
+//	@param	@left	Padding width in pixels
+//	@param	@right	Padding width in pixels
+///
+.gutters (@left: 0, @right: 0) {
+	padding-left: @left;
+	padding-right: @right;
+}
+
+///
+//	Set Box Sizing method to border box
+//	(Includes polyfill for IE7)
+//
+//	@param	method	Method for box-sizing
+///
+.box-sizing (@method: border-box) {
+	-webkit-box-sizing: @method;
+	   -moz-box-sizing: @method;
+			box-sizing: @method;
+	.ie7 & {
+		*behavior: url(@ie7-box-sizing);
+	}
+}
+
+
+///
+//	Micro Clearfix
+///
+.clearfix () {
+	*zoom: 1;
+	&:before, &:after {
+		content: ".";
+		visibility: hidden;
+		display: table;
+	}
+	&:after {
+		clear: both;
+	}
+}
+
+
+///	----------------------------------------------------------------------
+//	Basics
+///
+*, *:after, *:before {
+	.box-sizing;
+}
+

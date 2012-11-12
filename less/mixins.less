@@ -11,49 +11,6 @@
 
 
 ///
-//	Output font sizes in ems based on the base @font-size
-//	
-//	@param	@size	the font size in pixels to be converted
-///
-.font-size (@size: 16) {
-	font-size: @size+'px';
-	font-size: @size / (@font-size * 1em);
-}
-
-
-///
-//	Output line heights in ems based on the base @font-size
-//	
-//	@param	@size	the font size in pixels to be converted
-///
-.line-height (@lh: 24) {
-	line-height: @lh / (@font-size * 1em);
-}
-
-
-///
-//	Output a width in ems based on the column grid
-//	
-//	@param	@cols	The number of columns to calculate
-///
-.columns (@cols: 1) {
-	width: (@cols * (@column + @gutter) - @gutter) / (@font-size * 1em);
-}
-
-
-///
-//	Set the size of an element
-//	
-//	@param	@width	The width in pixels (optional), translated into em
-//	@param	@height	The width in pixels (optional), translated into em
-///
-.size (@width: 'auto', @height: 'auto') {
-	width: @width / (@font-size * 1em);
-	height: @height / (@font-size * 1em);
-}
-
-
-///
 //	Background Image
 //	Includes retina images: 'image.png' would be 'image@2x.png'
 //	
@@ -80,7 +37,7 @@
 
 .jit-retina-image (@image: 'none', @path: @image-path, @w: 0, @h: 0, @jit-mode: 0, @pos: 0) {
 
-	@normal: ~`"@{image}" = "none"? "@{image}": "/image/@{jit-mode}/@{}@{path}@{image}"`;
+	@normal: ~`"@{image}" = "none"? "@{image}": "/image/@{jit-mode}/@{path}/@{image}"`;
 	@retina: ~`"@{image}" = "none"? "@{image}": "@{path}@{image}".split('.').slice(0, "@{path}@{image}".split('.').length - 1).join(".") + "@2x" + "." + "@{path}@{image}".split('.')["@{path}@{image}".split('.').length - 1]`;
 
 	background-image: url("@{normal}");
@@ -91,21 +48,6 @@
 	background-position: @position;
 	background-origin: @origin;
 	background-size: @w @h;
-}
-
-
-///
-//	Clearfix
-///
-.clearfix {
-	zoom: 1;
-	&:after {
-		display: block;
-		visibility: hidden;
-		height: 0;
-		clear: both;
-		content: ".";
-	}
 }
 
 
@@ -172,7 +114,7 @@
 //	@param	@bottomleft
 //	@param	@topleft
 ///
-.border-radius (@radius: 0px) {
+.border-radius-all (@radius: 0px) {
 	-webkit-border-radius: @radius;
 	-moz-border-radius: @radius;
 	border-radius: @radius;
@@ -212,7 +154,6 @@
 	-webkit-opacity: @opacity;
 	opacity: @opacity;
 }
-
 
 
 ///

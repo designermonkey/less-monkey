@@ -1,0 +1,105 @@
+
+
+///
+//	Adaptive Grid
+//	
+//	@package	Less Monkey
+//	@author		John Porter <john@designermonkey.co.uk>
+//	@license	CC0 <http://creativecommons.org/publicdomain/zero/1.0/>
+///
+
+
+///	----------------------------------------------------------------------
+//	Configuration
+///
+@column:	48;					// The column width of your grid in pixels
+@gutter:	24;					// The gutter width of your grid in pixels
+
+
+///
+// Column widths in variables
+///
+ @1cols: ( 1 * (@column + @gutter) - @gutter) / @em; @1col: @1cols;
+ @2cols: ( 2 * (@column + @gutter) - @gutter) / @em;
+ @3cols: ( 3 * (@column + @gutter) - @gutter) / @em;
+ @4cols: ( 4 * (@column + @gutter) - @gutter) / @em;
+ @5cols: ( 5 * (@column + @gutter) - @gutter) / @em;
+ @6cols: ( 6 * (@column + @gutter) - @gutter) / @em;
+ @7cols: ( 7 * (@column + @gutter) - @gutter) / @em;
+ @8cols: ( 8 * (@column + @gutter) - @gutter) / @em;
+ @9cols: ( 9 * (@column + @gutter) - @gutter) / @em;
+@10cols: (10 * (@column + @gutter) - @gutter) / @em;
+@11cols: (11 * (@column + @gutter) - @gutter) / @em;
+@12cols: (12 * (@column + @gutter) - @gutter) / @em;
+@13cols: (13 * (@column + @gutter) - @gutter) / @em;
+@14cols: (14 * (@column + @gutter) - @gutter) / @em;
+@15cols: (15 * (@column + @gutter) - @gutter) / @em;
+@16cols: (16 * (@column + @gutter) - @gutter) / @em;
+
+
+///	----------------------------------------------------------------------
+//	Adaptive Grid Mixins
+///
+
+///
+//	Wrapper
+//
+//	@param	cols	Number of columns for the wrapper width
+///
+.wrapper (@cols) {
+	width: @cols;
+	margin: 0 auto;
+	overflow: hidden;
+	.clearfix;
+}
+
+///
+//	Columns
+//
+//	@param	@num	Number of columns
+///
+.columns (@num) {
+	width: ( @num * (@column + @gutter) - @gutter) / @em;
+	float: left;
+}
+
+
+///
+//	Set Box Sizing method to border box
+//	(Includes polyfill for IE7)
+//
+//	@param	method	Method for box-sizing
+///
+.box-sizing (@method: content-box) {
+	-webkit-box-sizing: @method;
+	   -moz-box-sizing: @method;
+			box-sizing: @method;
+	.ie7 & {
+		*behavior: url(@ie7-box-sizing);
+	}
+}
+
+
+///
+//	Micro Clearfix
+///
+.clearfix () {
+	*zoom: 1;
+	&:before, &:after {
+		content: ".";
+		visibility: hidden;
+		display: table;
+	}
+	&:after {
+		clear: both;
+	}
+}
+
+
+///	----------------------------------------------------------------------
+//	Basics
+///
+*, *:after, *:before {
+	.box-sizing;
+}
+
