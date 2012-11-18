@@ -157,6 +157,21 @@
 
 
 ///
+//	Background Opacity
+//	
+//	@param	@colour	Hex colour value
+//	@param	@alpha	0-1 value
+///
+.background-opacity (@colour: #000000, @alpha: 0.5) {
+	background-color: transparent;
+	background-color: rgba(red(@colour), green(@colour), blue(@colour), @opacity);
+	@a: (@alpha).toString(16);
+	filter: ~`"progid:DXImageTransform.Microsoft.gradient(startColorstr=@{colour}" + ((@a).length === 1) ? "0" + @a : @a + ",endColorstr=@{colour}" + ((@a).length === 1) ? "0" + @a : @a + ")"`;
+	-ms-filter: ~`"progid:DXImageTransform.Microsoft.gradient(startColorstr=@{colour}" + ((@a).length === 1) ? "0" + @a : @a + ",endColorstr=@{colour}" + ((@a).length === 1) ? "0" + @a : @a + ")"`;
+}
+
+
+///
 //	Transitions
 //	@param	@speed	Transition duration
 ///
