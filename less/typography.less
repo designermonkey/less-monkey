@@ -1,5 +1,4 @@
 
-
 ///
 //	Typography
 //	Set up default typographical styles using the baseline grid.
@@ -36,11 +35,11 @@
 ///
 //	Output line heights in ems based on the @baseline
 //	
-//	@param	times	Number times the baseline line-height
-//	@param	fsize	The font size in pixels to be converted
+//	@param	@times	Number times the baseline line-height
+//	@param	@size	The font size in pixels to be converted
 ///
-.line-height (@times: 1, @fsize: @font-size) {
-	line-height: (@baseline*@times) / @fsize * 1em;
+.line-height (@times: 1, @size: @font-size) {
+	line-height: (@baseline*@times) / @size * 1em;
 }
 
 
